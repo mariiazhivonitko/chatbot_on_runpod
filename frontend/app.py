@@ -2,13 +2,13 @@ import streamlit as st
 import requests
 
 st.set_page_config(page_title="CyThIA Chatbot")
-st.title("💬 CyThIA Chatbot")
+st.title("CyThIA Chatbot")
 
 API_URL = "https://6kmsu0r0kbcvzl-8501.proxy.runpod.net/chat"
 MODEL_NAME = "CyThIA-Llama3"
 
 # --- Button to form for users' feedback ---
-st.link_button("feedback", "https://e5fgg25x.forms.app/spa-feedback-form", help=None, type="secondary", icon=None, disabled=False, use_container_width=None, width="content")
+st.link_button("feedback", "https://e5fgg25x.forms.app/spa-feedback-form", help=None, type="primary", icon=None, disabled=False, use_container_width=None, width="content")
 
 # --- Initialize chat history ---
 if "messages" not in st.session_state:
