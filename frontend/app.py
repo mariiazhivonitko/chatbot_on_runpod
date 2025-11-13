@@ -74,27 +74,27 @@ if prompt := st.chat_input("Ask me anything about cyber security..."):
     st.session_state.messages.append({"role": "assistant", "content": response})
 
      # Feedback stars
-    sentiment_mapping = ["one", "two", "three", "four", "five"]
-    selected = st.feedback("faces")
-    if selected is not None:
-        rating = selected + 1
-        # Save feedback to backend FastAPI
-        try:
-            requests.post(
-                f"{API_URL}/feedback",
-                json={
-                    "question": st.session_state.last_prompt,
-                    "answer": st.session_state.last_response,
-                    "rating": rating
-            },
-                timeout=50
-            )
-            st.success(f"Thanks for your feedback! You selected {sentiment_mapping[selected]} star(s).")
-            # Clear last prompt/response so feedback can't be submitted twice
-            st.session_state.last_prompt = ""
-            st.session_state.last_response = ""
-        except:
-            st.warning("Couldn't send feedback to server.")
-        
+sentiment_mapping = ["one", "two", "three", "four", "five"]
+selected = st.feedback("faces")
+if selected is not None:
+    rating = selected + 1
+    # Save feedback to backend FastAPI
+    try:
+        requests.post(
+            f"{API_URL}/feedback",
+            json={
+                "question": st.session_state.last_prompt,
+                "answer": st.session_state.last_response,
+                "rating": rating
+        },
+            timeout=50
+        )
+        st.success(f"Thanks for your feedback! You selected {sentiment_mapping[selected]} star(s).")
+        # Clear last prompt/response so feedback can't be submitted twice
+        st.session_state.last_prompt = ""
+        st.session_state.last_response = ""
+    except:
+        st.warning("Couldn't send feedback to server.")
+    
 
-   
+
