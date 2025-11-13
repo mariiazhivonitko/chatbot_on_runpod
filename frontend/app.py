@@ -15,7 +15,7 @@ Focus on correctness and clarity.
 st.set_page_config(page_title="CyThIA Chatbot")
 st.title("CyThIA Chatbot")
 
-API_URL = "https://oqo6u31iwey3g5-8501.proxy.runpod.net/chat"
+API_URL = "https://qf7v1l7ujtvff9-8501.proxy.runpod.net/chat"
 MODEL_NAME = "CyThIA-Llama3"
 
 # --- Button to form for users' feedback ---
