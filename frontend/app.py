@@ -1,6 +1,17 @@
 import streamlit as st
 import requests
 
+system_prompt = """### Instruction:
+You are CyThIA, an expert cybersecurity assistant. 
+Your task is to provide clear, accurate, and logical answers to cybersecurity-related questions. 
+Focus on correctness and clarity.
+
+### Input:
+{user_question}
+
+### Response:
+"""
+
 st.set_page_config(page_title="CyThIA Chatbot")
 st.title("CyThIA Chatbot")
 
@@ -20,9 +31,13 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 # --- Chat input ---
-if prompt := st.chat_input("Ask me..."):
+if prompt := st.chat_input("Ask me anything about cyber security..."):
     # Append user message first
     st.session_state.messages.append({"role": "user", "content": prompt})
+
+    # Prepare the formatted prompt
+    formatted_prompt = system_prompt.format(user_question=prompt)
+
 
     # Display user message immediately
     with st.chat_message("user"):
@@ -31,19 +46,19 @@ if prompt := st.chat_input("Ask me..."):
     # Create assistant container
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
-        message_placeholder.markdown("🤖 Thinking...")
+        message_placeholder.markdown("Thinking...")
 
         # Call backend API
         try:
             response_data = requests.post(
                 f"{API_URL}/{MODEL_NAME}",
-                json={"message": prompt},  # Simplified input
+                json={"message": formatted_prompt},  # Simplified input
                 timeout=120
             )
             response_data.raise_for_status()
             response = response_data.json().get("response", "No response received.")
         except requests.exceptions.RequestException:
-            response = "⚠️ The chatbot service is temporarily unavailable."
+            response = "The chatbot service is temporarily unavailable."
 
         # Update placeholder in-place
         message_placeholder.markdown(response)
