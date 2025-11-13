@@ -4,7 +4,7 @@ import requests
 st.set_page_config(page_title="CyThIA Chatbot")
 st.title("CyThIA Chatbot")
 
-API_URL = "https://6kmsu0r0kbcvzl-8501.proxy.runpod.net/chat"
+API_URL = "https://oqo6u31iwey3g5-8501.proxy.runpod.net/chat"
 MODEL_NAME = "CyThIA-Llama3"
 
 # --- Button to form for users' feedback ---
