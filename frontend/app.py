@@ -65,9 +65,9 @@ if prompt := st.chat_input("Ask me anything about cyber security..."):
 
         # Feedback stars
         sentiment_mapping = ["one", "two", "three", "four", "five"]
-        selected = st.feedback("stars")
+        selected = st.feedback("faces")
         if selected is not None:
-            st.markdown(f"You selected {sentiment_mapping[selected]} star(s).")
+            message_placeholder.markdown(f"You selected {sentiment_mapping[selected]} star(s).")
 
 
     # Append assistant message after rendering
