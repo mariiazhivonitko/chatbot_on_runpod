@@ -65,29 +65,29 @@ if prompt := st.chat_input("Ask me anything about cyber security..."):
         # Update placeholder in-place
         message_placeholder.markdown(response)
 
-        # Feedback stars
-        sentiment_mapping = ["one", "two", "three", "four", "five"]
-        selected = st.feedback("faces")
-        if selected is not None:
-            rating = selected + 1
-            # Save feedback to backend FastAPI
-            try:
-                requests.post(
-                    f"{API_URL}/feedback",
-                    json={
-                        "question": prompt,
-                        "answer": response,
-                        "rating": rating
-                    },
-                    timeout=10
-                )
-                st.success("Thanks for your feedback!")
-            except:
-                st.warning("Couldn't send feedback to server.")
-            message_placeholder.markdown(f"You selected {sentiment_mapping[selected]} star(s).")
-
-
+    
     # Append assistant message after rendering
     st.session_state.messages.append({"role": "assistant", "content": response})
+
+     # Feedback stars
+    sentiment_mapping = ["one", "two", "three", "four", "five"]
+    selected = st.feedback("faces")
+    if selected is not None:
+        rating = selected + 1
+        # Save feedback to backend FastAPI
+        try:
+            requests.post(
+                f"{API_URL}/feedback",
+                json={
+                    "question": prompt,
+                    "answer": response,
+                    "rating": rating
+                },
+                timeout=10
+            )
+            st.success("Thanks for your feedback!")
+        except:
+            st.warning("Couldn't send feedback to server.")
+        message_placeholder.markdown(f"You selected {sentiment_mapping[selected]} star(s).")
 
    
