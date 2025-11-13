@@ -26,6 +26,10 @@ st.link_button("feedback", "https://e5fgg25x.forms.app/spa-feedback-form", help=
 # --- Initialize chat history ---
 if "messages" not in st.session_state:
     st.session_state.messages = []
+if "last_prompt" not in st.session_state:
+    st.session_state.last_prompt = ""
+if "last_response" not in st.session_state:
+    st.session_state.last_response = ""
 
 # --- Display chat history ---
 for message in st.session_state.messages:
@@ -79,15 +83,18 @@ if prompt := st.chat_input("Ask me anything about cyber security..."):
             requests.post(
                 f"{API_URL}/feedback",
                 json={
-                    "question": prompt,
-                    "answer": response,
+                    "question": st.session_state.last_prompt,
+                    "answer": st.session_state.last_response,
                     "rating": rating
-                },
-                timeout=10
+            },
+                timeout=50
             )
-            st.success("Thanks for your feedback!")
+            st.success(f"Thanks for your feedback! You selected {sentiment_mapping[selected]} star(s).")
+            # Clear last prompt/response so feedback can't be submitted twice
+            st.session_state.last_prompt = ""
+            st.session_state.last_response = ""
         except:
             st.warning("Couldn't send feedback to server.")
-        message_placeholder.markdown(f"You selected {sentiment_mapping[selected]} star(s).")
+        
 
    
