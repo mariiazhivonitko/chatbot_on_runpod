@@ -17,7 +17,7 @@ Your task is to provide clear, accurate, and logical answers to cybersecurity-re
 st.set_page_config(page_title="CyThIA Chatbot")
 st.title("CyThIA Chatbot")
 
-API_URL = "https://qf7v1l7ujtvff9-8501.proxy.runpod.net/chat"
+API_URL = "https://41nl83fknp91f2-8501.proxy.runpod.net/chat"
 MODEL_NAME = "CyThIA-Llama3"
 
 # --- Button to form for users' feedback ---
@@ -89,7 +89,7 @@ if selected is not None:
         },
             timeout=50
         )
-        st.success(f"Thanks for your feedback! You selected {sentiment_mapping[selected]} star(s).")
+        st.success(f"Thanks for your feedback!")
         # Clear last prompt/response so feedback can't be submitted twice
         st.session_state.last_prompt = ""
         st.session_state.last_response = ""
