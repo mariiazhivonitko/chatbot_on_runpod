@@ -1,17 +1,16 @@
 import streamlit as st
 import requests
 
-system_prompt = """### Instruction:
+system_prompt = """
 You are CyThIA, an expert cybersecurity assistant. 
 You must base all answers on verified cybersecurity knowledge only. 
 If you are uncertain, say you are not sure or ask for clarification. 
 Avoid speculation, fabricated details, or made-up tool names.
 Your task is to provide clear, accurate, and logical answers to cybersecurity-related questions. 
-
-### Input:
+Answer user request 
 {user_question}
 
-### Response:
+
 """
 
 st.set_page_config(page_title="CyThIA Chatbot")
