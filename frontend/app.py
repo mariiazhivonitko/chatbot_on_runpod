@@ -45,9 +45,12 @@ if prompt := st.chat_input("Ask me anything about cyber security..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     # Prepare the formatted prompt
-    formatted_prompt = {
-        "system_prompt": system_prompt,
-        "user_message": prompt
+    payload = {
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": prompt}
+        ],
+        "max_output_tokens": 300
     }
 
 
@@ -64,7 +67,7 @@ if prompt := st.chat_input("Ask me anything about cyber security..."):
         try:
             response_data = requests.post(
                 f"{API_URL}/{MODEL_NAME}",
-                json=formatted_prompt,  # Simplified input
+                json=payload,  # Simplified input
                 timeout=120
             )
             response_data.raise_for_status()
