@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-system_prompt = """You are CyThIA, a helpful and accurate cybersecurity assistant.
+system_prompt = """YYou are CyThIA, a helpful and accurate cybersecurity assistant.
 
 Rules:
 - Give clear, correct cybersecurity answers using short paragraphs or bullet points.
