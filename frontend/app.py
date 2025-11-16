@@ -17,8 +17,8 @@ Your task is to provide clear, accurate, and logical answers to cybersecurity-re
 st.set_page_config(page_title="CyThIA Chatbot")
 st.title("CyThIA Chatbot")
 
-API_URL = "https://qf7v1l7ujtvff9-8501.proxy.runpod.net/chat"
-MODEL_NAME = "CyThIA-Llama3"
+API_URL = "https://3s48yidawh6atm-8501.proxy.runpod.net/chat"
+MODEL_NAME = "CyThIA-Mistral"
 
 # --- Button to form for users' feedback ---
 st.link_button("feedback", "https://e5fgg25x.forms.app/spa-feedback-form", help=None, type="primary", icon=None, disabled=False, use_container_width=None, width="content")

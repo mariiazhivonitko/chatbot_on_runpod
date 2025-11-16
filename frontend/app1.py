@@ -5,8 +5,8 @@ st.set_page_config(page_title="CyThIA Chatbot")
 st.title("💬 CyThIA Chatbot")
 
 # --- Backend API URL ---
-API_URL = "https://6kmsu0r0kbcvzl-8501.proxy.runpod.net/chat"
-MODEL_NAME = "CyThIA-Llama3"  # only single model for now
+API_URL = "https://3s48yidawh6atm-8501.proxy.runpod.net/chat"
+MODEL_NAME = "CyThIA-Mistral"  # only single model for now
 
 # --- Session state for chat messages ---
 if "messages" not in st.session_state:

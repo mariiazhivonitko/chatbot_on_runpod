@@ -7,4 +7,5 @@ bitsandbytes
 hf_transfer
 peft
 bitsandbytes
+protobuf
 sentencepiece
