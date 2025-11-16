@@ -58,7 +58,7 @@ if prompt := st.chat_input("Ask me anything about cyber security..."):
         try:
             response_data = requests.post(
                 f"{API_URL}/{MODEL_NAME}",
-                json={"message": formatted_prompt},  # Simplified input
+                json={"message": prompt},  # Simplified input
                 timeout=120
             )
             response_data.raise_for_status()
