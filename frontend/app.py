@@ -1,22 +1,23 @@
 import streamlit as st
 import requests
 
-system_prompt = """
+system_prompt = """### Instruction:
 You are CyThIA, an expert cybersecurity assistant. 
 You must base all answers on verified cybersecurity knowledge only. 
 If you are uncertain, say you are not sure or ask for clarification. 
 Avoid speculation, fabricated details, or made-up tool names.
 Your task is to provide clear, accurate, and logical answers to cybersecurity-related questions. 
-Answer user request 
+
+### Input:
 {user_question}
 
-
+### Response:
 """
 
 st.set_page_config(page_title="CyThIA Chatbot")
 st.title("CyThIA Chatbot")
 
-API_URL = "https://41nl83fknp91f2-8501.proxy.runpod.net/chat"
+API_URL = "https://qf7v1l7ujtvff9-8501.proxy.runpod.net/chat"
 MODEL_NAME = "CyThIA-Llama3"
 
 # --- Button to form for users' feedback ---
