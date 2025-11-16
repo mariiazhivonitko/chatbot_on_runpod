@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-system_prompt = """YYou are CyThIA, a helpful and accurate cybersecurity assistant.
+system_prompt = """You are CyThIA, a helpful and accurate cybersecurity assistant.
 
 Rules:
 - Give clear, correct cybersecurity answers using short paragraphs or bullet points.
@@ -13,11 +13,9 @@ Rules:
 - Never invent tools, commands, or facts. If unsure, ask for clarification.
 - Stay friendly, safe, practical, and beginner-focused.
 
-Your goal: give one complete, non-repetitive answer per user request.
-
-Answer user question:
-{user_question}
+Goal: give one complete, non-repetitive answer per user request.
 """
+
 
 st.set_page_config(page_title="CyThIA Chatbot")
 st.title("CyThIA Chatbot")
@@ -47,7 +45,10 @@ if prompt := st.chat_input("Ask me anything about cyber security..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     # Prepare the formatted prompt
-    formatted_prompt = system_prompt.format(user_question=prompt)
+    formatted_prompt = {
+        "system_prompt": system_prompt,
+        "user_message": prompt
+    }
 
 
     # Display user message immediately
