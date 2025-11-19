@@ -5,7 +5,7 @@ st.set_page_config(page_title="CyThIA Chatbot")
 st.title("💬 CyThIA Chatbot")
 
 # --- Backend API URL ---
-API_URL = "https://3s48yidawh6atm-8501.proxy.runpod.net/chat"
+API_URL = "https://0k7fokvy2dvubs-8501.proxy.runpod.net/chat"
 MODEL_NAME = "CyThIA-Mistral"  # only single model for now
 
 # --- Session state for chat messages ---
@@ -43,7 +43,7 @@ if prompt := st.chat_input("Ask me..."):
         try:
             response_data = requests.post(
                 f"{API_URL}/{MODEL_NAME}",
-                json={"message": final_prompt},
+                json={"message": prompt},
                 timeout=120  # wait max 2 minutes
             )
             response_data.raise_for_status()
