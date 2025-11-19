@@ -20,11 +20,11 @@ Goal: give one complete, non-repetitive answer per user request.
 st.set_page_config(page_title="CyThIA Chatbot")
 st.title("CyThIA Chatbot")
 
-API_URL = "https://0k7fokvy2dvubs-8501.proxy.runpod.net/chat"
+API_URL = "https://lnd23kmtrdj1oz-8501.proxy.runpod.net/chat"
 MODEL_NAME = "CyThIA-Mistral"
 
-# --- Button to form for users' feedback ---
-st.link_button("feedback", "https://e5fgg25x.forms.app/spa-feedback-form", help=None, type="primary", icon=None, disabled=False, use_container_width=None, width="content")
+# # --- Button to form for users' feedback ---
+# st.link_button("feedback", "https://e5fgg25x.forms.app/spa-feedback-form", help=None, type="primary", icon=None, disabled=False, use_container_width=None)
 
 # --- Initialize chat history ---
 if "messages" not in st.session_state:
@@ -82,7 +82,7 @@ if prompt := st.chat_input("Ask me anything about cyber security..."):
     # Append assistant message after rendering
     st.session_state.messages.append({"role": "assistant", "content": response})
 
-     # Feedback stars
+    """  # Feedback stars
 sentiment_mapping = ["one", "two", "three", "four", "five"]
 selected = st.feedback("faces")
 if selected is not None:
@@ -107,3 +107,4 @@ if selected is not None:
     
 
 
+ """
