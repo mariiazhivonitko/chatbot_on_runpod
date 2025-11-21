@@ -1,6 +1,7 @@
 from deepeval.dataset import EvaluationDataset, Golden
 from deepeval.test_case import LLMTestCase, LLMTestCaseParams
 from deepeval.metrics import GEval
+from deepeval.evaluate import AsyncConfig
 from deepeval import evaluate
 from deepeval import assert_test
 import pandas as pd
@@ -100,16 +101,17 @@ metrics = [correctness, relevance, coherence, clarity, tonality]
 results = []
 test_cases = []
 
+
 for golden in dataset.goldens:
     response = call_chatbot(golden.input)
     test_case = LLMTestCase(input=golden.input, actual_output=response, expected_output=golden.expected_output)
     test_cases.append(test_case)
 
-    # Evaluate each metric and store the score
+evaluate(test_cases, metrics, async_config=AsyncConfig(max_concurrent=1))
+
+"""   # Evaluate each metric and store the score
     metric_scores = {}
-    for metric in metrics:
-        score = metric.evaluate(test_case)
-        metric_scores[metric.name] = score
+    
 
     # Store results
     results.append({
@@ -134,4 +136,4 @@ with pd.ExcelWriter("chatbot_evaluation_results.xlsx") as writer:
     averages_df.to_excel(writer, sheet_name="Averages", index=False)
 
 print("\nDetailed results and average metrics saved to chatbot_evaluation_results.xlsx")
-#evaluate(test_cases, metrics)
+#evaluate(test_cases, metrics) """
