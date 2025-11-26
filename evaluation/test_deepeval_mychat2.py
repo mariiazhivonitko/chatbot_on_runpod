@@ -6,7 +6,7 @@ from deepeval import evaluate
 
 
 def call_chatbot(prompt):
-    API_URL = "https://mbl0h54m0zdvum-8501.proxy.runpod.net/chat"
+    API_URL = "https://8d42ajkb3lcbm1-8501.proxy.runpod.net/chat"
     MODEL_NAME = "CyThIA-Mistral"
 
     try:
@@ -40,7 +40,9 @@ for golden in dataset.goldens:
     test_cases.append(test_case)
 
 #evaluate(test_cases, metrics, async_config=AsyncConfig(max_concurrent=1))
-evaluate(test_cases, metric_collection="CyThIA", async_config=AsyncConfig(max_concurrent=1))
+evaluate(test_cases, metric_collection="CyThIA", async_config=AsyncConfig(max_concurrent=1), hyperparameters={
+        "Model": "gpt-4",
+    })
 
 
 """   # Evaluate each metric and store the score
