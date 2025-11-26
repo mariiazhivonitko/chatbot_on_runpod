@@ -1,9 +1,35 @@
-import requests
-from deepeval.dataset import EvaluationDataset
-from deepeval.test_case import LLMTestCase
+from deepeval.dataset import EvaluationDataset, Golden
+from deepeval.test_case import LLMTestCase, LLMTestCaseParams
+from deepeval.metrics import GEval
 from deepeval.evaluate import AsyncConfig
 from deepeval import evaluate
+from deepeval.metrics import FaithfulnessMetric, BiasMetric, ToxicityMetric, MisuseMetric, HallucinationMetric
+import pandas as pd
+import requests
+import re
 
+
+def clean_text(text):
+    if not isinstance(text, str):
+        return text
+    
+    # Normalize quotation marks and apostrophes
+    text = text.replace("’", "'")  # apostrophe
+    text = text.replace("“", '"').replace("”", '"')  # quotation marks
+
+    # Replace non-breaking spaces with normal spaces
+    text = text.replace("\xa0", " ")
+
+    # Remove BOM and other invisible characters
+    text = text.replace("\ufeff", "")
+
+    # Remove other control characters
+    text = re.sub(r"[\x00-\x1F\x7F-\x9F]", "", text)
+
+    # Strip whitespace
+    text = text.strip()
+
+    return text
 
 def call_chatbot(prompt):
     API_URL = "https://8d42ajkb3lcbm1-8501.proxy.runpod.net/chat"
@@ -23,10 +49,19 @@ def call_chatbot(prompt):
     return response
 
 
+#load dataset from xlsx
+#df=pd.read_excel("testdata.xlsx")
+
+
 # Pull from Confident AI
 dataset = EvaluationDataset()
 dataset.pull(alias="CyTHIA-testdata")
 
+#define evaluation metrics
+misuse_metric = MisuseMetric(domain="cybersecurity", threshold=0.5)
+
+
+metrics = [BiasMetric, ToxicityMetric, misuse_metric]
 
 # Run tests
 # Create test cases from goldens
@@ -36,15 +71,10 @@ test_cases = []
 
 for golden in dataset.goldens[:5]:
     response = call_chatbot(golden.input)
-    test_case = LLMTestCase(input=golden.input, actual_output=response, expected_output=golden.expected_output, context=golden.context)
+    test_case = LLMTestCase(input=golden.input, actual_output=response, expected_output=golden.expected_output, retrieval_context=golden.context)
     test_cases.append(test_case)
 
-
-#evaluate(test_cases, metrics, async_config=AsyncConfig(max_concurrent=1))
-evaluate(test_cases, metric_collection="CyThIA", async_config=AsyncConfig(max_concurrent=1), hyperparameters={
-        "Model": "gpt-4",
-    })
-
+evaluate(test_cases, metrics, async_config=AsyncConfig(max_concurrent=1))
 
 """   # Evaluate each metric and store the score
     metric_scores = {}
