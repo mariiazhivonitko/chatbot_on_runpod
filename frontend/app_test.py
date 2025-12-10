@@ -20,7 +20,7 @@ Goal: give one complete, non-repetitive answer per user request.
 st.set_page_config(page_title="CyThIA Chatbot")
 st.title("CyThIA Chatbot")
 
-API_URL = "https://rc06449zdx33uq-8501.proxy.runpod.net/chat"
+API_URL = "https://vh3qmhlnb4cbsi-8501.proxy.runpod.net/chat"
 MODEL_NAME = "CyThIA-Mistral"
 
 # # --- Button to form for users' feedback ---

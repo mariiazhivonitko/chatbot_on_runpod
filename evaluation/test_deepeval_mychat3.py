@@ -4,6 +4,7 @@ from deepeval.metrics import GEval
 from deepeval.evaluate import AsyncConfig
 from deepeval import evaluate
 from deepeval.metrics import AnswerRelevancyMetric
+from deepeval.tracing import observe, update_current_trace
 import pandas as pd
 import requests
 import re
@@ -30,8 +31,9 @@ def clean_text(text):
 
     return text
 
+@observe()
 def call_chatbot(prompt):
-    API_URL = "https://8d42ajkb3lcbm1-8501.proxy.runpod.net/chat"
+    API_URL = "https://vh3qmhlnb4cbsi-8501.proxy.runpod.net/chat"
     MODEL_NAME = "CyThIA-Mistral"
 
     try:
@@ -45,6 +47,7 @@ def call_chatbot(prompt):
     except requests.exceptions.RequestException as e:
         response = f"The chatbot service is temporarily unavailable."
 
+    update_current_trace(input=prompt, output=response)
     return response
 
 
