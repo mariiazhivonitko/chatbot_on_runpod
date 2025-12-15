@@ -33,7 +33,7 @@ def clean_text(text):
 
 @observe()
 def call_chatbot(prompt):
-    API_URL = "https://vh3qmhlnb4cbsi-8501.proxy.runpod.net/chat"
+    API_URL = "https://75al8tejtxrsxl-8501.proxy.runpod.net/chat"
     MODEL_NAME = "CyThIA-Mistral"
 
     try:
@@ -53,11 +53,20 @@ def call_chatbot(prompt):
 
 #load dataset from xlsx
 #df=pd.read_excel("testdata.xlsx")
+#load dataset from xlsx
+df=pd.read_excel("testdata.xlsx")
 
+# Create Goldens
+goldens=[]
+for index, row in df.iterrows():
+    goldens.append(Golden(input=clean_text(row['input']), expected_output=clean_text(row['expected_output'])))
+    if index>4:
+        break
 
+dataset = EvaluationDataset(goldens=goldens)
 # Pull from Confident AI
-dataset = EvaluationDataset()
-dataset.pull(alias="CyTHIA-testdata")
+# dataset = EvaluationDataset()
+# dataset.pull(alias="CyTHIA-testdata")
 
 #define evaluation metrics
 correctness_ai = GEval(
