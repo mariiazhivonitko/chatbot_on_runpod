@@ -60,8 +60,8 @@ df=pd.read_excel("testdata.xlsx")
 goldens=[]
 for index, row in df.iterrows():
     goldens.append(Golden(input=clean_text(row['input']), expected_output=clean_text(row['expected_output'])))
-    if index>4:
-        break
+    # if index>4:
+    #     break
 
 dataset = EvaluationDataset(goldens=goldens)
 # Pull from Confident AI
@@ -71,7 +71,7 @@ dataset = EvaluationDataset(goldens=goldens)
 #define evaluation metrics
 correctness_ai = GEval(
     name="Correctness AI",
-    criteria="Determine whether the actual output is factually correct based on the expected output.",
+    criteria="Determine whether the actual output is factually accurate and logicaly correct based on the input, assessing whether the response delivers the correct information needed to address the query.",
     evaluation_params=[LLMTestCaseParams.INPUT, LLMTestCaseParams.ACTUAL_OUTPUT],
 )
 
